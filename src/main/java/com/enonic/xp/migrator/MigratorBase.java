@@ -12,9 +12,11 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 
 import com.enonic.xp.form.Form;
 import com.enonic.xp.form.FormItem;
+import com.enonic.xp.form.Occurrences;
 import com.enonic.xp.migrator.yml.mixin.FormItemSerializer;
 import com.enonic.xp.migrator.yml.mixin.FormSerializer;
 import com.enonic.xp.migrator.yml.mixin.LocalizedTextSerializer;
+import com.enonic.xp.migrator.yml.mixin.OccurrencesSerializer;
 import com.enonic.xp.schema.LocalizedText;
 
 public abstract class MigratorBase
@@ -29,6 +31,7 @@ public abstract class MigratorBase
         module.addSerializer( Form.class, new FormSerializer() );
         module.addSerializer( FormItem.class, new FormItemSerializer() );
         module.addSerializer( LocalizedText.class, new LocalizedTextSerializer() );
+        module.addSerializer( Occurrences.class, new OccurrencesSerializer() );
 
         MAPPER.registerModule( module );
     }

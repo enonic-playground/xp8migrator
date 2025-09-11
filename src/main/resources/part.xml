@@ -6,6 +6,68 @@
     <input type="TextLine" name="myTextLine">
       <label i18n="key.label">My TextLine</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <max-length>50</max-length>
+      </config>
     </input>
+    <item-set name="panel">
+      <label i18n="article.storypanel">Panel</label>
+      <occurrences minimum="1" maximum="5"/>
+      <items>
+        <input type="TextLine" name="myTextLine">
+          <label i18n="key.label">My TextLine</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <field-set>
+      <label>My field set</label>
+      <items>
+        <input type="TextLine" name="fieldSetItem">
+          <label i18n="key2.label">Field set Item</label>
+          <help-text i18n="key2.help-text"/>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </field-set>
+    <option-set name="radioOptionSet">
+      <label>Single selection</label>
+      <expanded>false</expanded>
+      <occurrences minimum="0" maximum="1"/>
+      <options minimum="1" maximum="1">
+        <option name="option_1">
+          <label>Option 1</label>
+          <default>false</default>
+          <items>
+            <input name="text-input" type="TextLine">
+              <label>Name</label>
+              <help-text>Text input</help-text>
+              <default>something</default>
+              <occurrences minimum="1" maximum="1"/>
+            </input>
+            <item-set name="minimum3">
+              <label>Minimum 3</label>
+              <occurrences minimum="3" maximum="0"/>
+              <items>
+                <input name="label" type="TextLine">
+                  <label>Label</label>
+                  <occurrences minimum="0" maximum="1"/>
+                </input>
+                <input name="value" type="TextLine">
+                  <label>Value</label>
+                  <occurrences minimum="0" maximum="1"/>
+                </input>
+              </items>
+            </item-set>
+          </items>
+        </option>
+        <option name="option_2">
+          <label>Option 2</label>
+          <default>false</default>
+          <items>
+          </items>
+        </option>
+      </options>
+    </option-set>
   </form>
 </part>
