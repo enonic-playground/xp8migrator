@@ -6,7 +6,7 @@ public class ApplicationDescriptorYml
 {
     public String description;
 
-    public ApplicationDescriptorYml( ApplicationDescriptor source )
+    public ApplicationDescriptorYml( final ApplicationDescriptor source )
     {
         this.description = source.getDescription();
     }

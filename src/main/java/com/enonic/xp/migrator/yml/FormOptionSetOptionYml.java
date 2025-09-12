@@ -10,7 +10,7 @@ import com.enonic.xp.form.FormItem;
 import com.enonic.xp.form.FormOptionSetOption;
 import com.enonic.xp.schema.LocalizedText;
 
-import static com.google.common.base.Strings.nullToEmpty;
+import static com.enonic.xp.migrator.yml.LocalizeHelper.localizeProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormOptionSetOptionYml
@@ -29,16 +29,8 @@ public class FormOptionSetOptionYml
     {
         name = source.getName();
         defaultOption = source.isDefaultOption();
-
-        if ( !nullToEmpty( source.getLabel() ).isEmpty() || !nullToEmpty( source.getLabelI18nKey() ).isEmpty() )
-        {
-            label = new LocalizedText( source.getLabel(), source.getLabelI18nKey() );
-        }
-
-        if ( !nullToEmpty( source.getHelpText() ).isEmpty() || !nullToEmpty( source.getHelpTextI18nKey() ).isEmpty() )
-        {
-            helpText = new LocalizedText( source.getHelpText(), source.getHelpTextI18nKey() );
-        }
+        label = localizeProperty( source.getLabel(), source.getLabelI18nKey() );
+        helpText = localizeProperty( source.getHelpText(), source.getHelpTextI18nKey() );
 
         final Iterator<FormItem> iterator = source.iterator();
         if ( iterator.hasNext() )

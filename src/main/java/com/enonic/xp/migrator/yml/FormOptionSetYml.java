@@ -1,21 +1,19 @@
 package com.enonic.xp.migrator.yml;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import com.enonic.xp.form.FormOptionSet;
+import com.enonic.xp.form.FormOptionSetOption;
 import com.enonic.xp.form.Occurrences;
 import com.enonic.xp.schema.LocalizedText;
 
-import static com.google.common.base.Strings.nullToEmpty;
+import static com.enonic.xp.migrator.yml.LocalizeHelper.localizeProperty;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormOptionSetYml
+    extends FormItemYml
 {
-    public String type = "OptionSet";
-
     public String name;
 
     public boolean expanded;
@@ -32,18 +30,12 @@ public class FormOptionSetYml
 
     public FormOptionSetYml( final FormOptionSet source )
     {
+        super( "OptionSet" );
+
         name = source.getName();
         expanded = source.isExpanded();
-
-        if ( !nullToEmpty( source.getLabel() ).isEmpty() || !nullToEmpty( source.getLabelI18nKey() ).isEmpty() )
-        {
-            label = new LocalizedText( source.getLabel(), source.getLabelI18nKey() );
-        }
-
-        if ( !nullToEmpty( source.getHelpText() ).isEmpty() || !nullToEmpty( source.getHelpTextI18nKey() ).isEmpty() )
-        {
-            helpText = new LocalizedText( source.getHelpText(), source.getHelpTextI18nKey() );
-        }
+        label = localizeProperty( source.getLabel(), source.getLabelI18nKey() );
+        helpText = localizeProperty( source.getHelpText(), source.getHelpTextI18nKey() );
 
         if ( source.getOccurrences() != null )
         {
@@ -55,7 +47,11 @@ public class FormOptionSetYml
             multiselection = source.getMultiselection();
         }
 
-        options = new ArrayList<>();
-        source.iterator().forEachRemaining( option -> options.add( new FormOptionSetOptionYml( option ) ) );
+        final Iterator<FormOptionSetOption> iterator = source.iterator();
+        if ( iterator.hasNext() )
+        {
+            options = new ArrayList<>();
+            iterator.forEachRemaining( option -> options.add( new FormOptionSetOptionYml( option ) ) );
+        }
     }
 }

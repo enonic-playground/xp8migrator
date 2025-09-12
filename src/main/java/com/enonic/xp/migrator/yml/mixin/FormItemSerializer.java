@@ -12,6 +12,7 @@ import com.enonic.xp.migrator.yml.FieldSetYml;
 import com.enonic.xp.migrator.yml.FormItemSetYml;
 import com.enonic.xp.migrator.yml.FormOptionSetOptionYml;
 import com.enonic.xp.migrator.yml.FormOptionSetYml;
+import com.enonic.xp.migrator.yml.InlineMixinYml;
 
 public class FormItemSerializer
     extends JsonSerializer<FormItem>
@@ -22,37 +23,15 @@ public class FormItemSerializer
     {
         final FormItemType type = formItem.getType();
 
-        if ( type == FormItemType.FORM_ITEM_SET )
+        switch ( type )
         {
-            final FormItemSetYml target = new FormItemSetYml( formItem.toFormItemSet() );
-            gen.writeObject( target );
-        }
-        else if ( type == FormItemType.FORM_OPTION_SET )
-        {
-            final FormOptionSetYml target = new FormOptionSetYml( formItem.toFormOptionSet() );
-            gen.writeObject( target );
-        }
-        else if ( type == FormItemType.FORM_OPTION_SET_OPTION )
-        {
-            final FormOptionSetOptionYml target = new FormOptionSetOptionYml( formItem.toFormOptionSetOption() );
-            gen.writeObject( target );
-        }
-        else if ( type == FormItemType.LAYOUT )
-        {
-            final FieldSetYml target = new FieldSetYml( formItem.toLayout() );
-            gen.writeObject( target );
-        }
-        else if ( type == FormItemType.MIXIN_REFERENCE )
-        {
-
-        }
-        else
-        {
-            if ( type.equals( FormItemType.INPUT ) )
-            {
-                final TextLine target = new TextLine( formItem.toInput() );
-                gen.writeObject( target );
-            }
+            case FORM_ITEM_SET -> gen.writeObject( new FormItemSetYml( formItem.toFormItemSet() ) );
+            case FORM_OPTION_SET -> gen.writeObject( new FormOptionSetYml( formItem.toFormOptionSet() ) );
+            case FORM_OPTION_SET_OPTION -> gen.writeObject( new FormOptionSetOptionYml( formItem.toFormOptionSetOption() ) );
+            case LAYOUT -> gen.writeObject( new FieldSetYml( formItem.toLayout() ) );
+            case MIXIN_REFERENCE -> gen.writeObject( new InlineMixinYml( formItem.toInlineMixin() ) );
+            case INPUT -> gen.writeObject( new TextLine( formItem.toInput() ) );
+            default -> throw new IllegalArgumentException( "Unsupported FormItemType: " + type );
         }
     }
 }

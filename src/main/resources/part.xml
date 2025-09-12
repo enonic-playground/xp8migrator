@@ -69,5 +69,6 @@
         </option>
       </options>
     </option-set>
+    <mixin name="myapp:common"/>
   </form>
 </part>

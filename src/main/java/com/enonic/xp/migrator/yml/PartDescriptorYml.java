@@ -1,9 +1,12 @@
 package com.enonic.xp.migrator.yml;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.enonic.xp.form.Form;
 import com.enonic.xp.region.PartDescriptor;
 import com.enonic.xp.schema.LocalizedText;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartDescriptorYml
 {
     public LocalizedText displayName;

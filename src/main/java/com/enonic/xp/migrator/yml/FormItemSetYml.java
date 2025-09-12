@@ -1,22 +1,19 @@
 package com.enonic.xp.migrator.yml;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import com.enonic.xp.form.FormItem;
 import com.enonic.xp.form.FormItemSet;
 import com.enonic.xp.form.Occurrences;
 import com.enonic.xp.schema.LocalizedText;
 
-import static com.google.common.base.Strings.nullToEmpty;
+import static com.enonic.xp.migrator.yml.LocalizeHelper.localizeProperty;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormItemSetYml
+    extends FormItemYml
 {
-    public String type = "ItemSet";
-
     public String name;
 
     public LocalizedText label;
@@ -29,24 +26,22 @@ public class FormItemSetYml
 
     public FormItemSetYml( final FormItemSet source )
     {
+        super( "ItemSet" );
+
         name = source.getName();
-
-        if ( !nullToEmpty( source.getLabel() ).isEmpty() || !nullToEmpty( source.getLabelI18nKey() ).isEmpty() )
-        {
-            label = new LocalizedText( source.getLabel(), source.getLabelI18nKey() );
-        }
-
-        if ( !nullToEmpty( source.getHelpText() ).isEmpty() || !nullToEmpty( source.getHelpTextI18nKey() ).isEmpty() )
-        {
-            helpText = new LocalizedText( source.getHelpText(), source.getHelpTextI18nKey() );
-        }
+        label = localizeProperty( source.getLabel(), source.getLabelI18nKey() );
+        helpText = localizeProperty( source.getHelpText(), source.getHelpTextI18nKey() );
 
         if ( source.getOccurrences() != null )
         {
             occurrences = source.getOccurrences();
         }
 
-        items = new ArrayList<>();
-        source.iterator().forEachRemaining( items::add );
+        final Iterator<FormItem> iterator = source.iterator();
+        if ( iterator.hasNext() )
+        {
+            items = new ArrayList<>();
+            iterator.forEachRemaining( items::add );
+        }
     }
 }
