@@ -6,9 +6,11 @@ public class Main
 {
     public static void main( String[] args )
     {
-        final Path sourceDir = Path.of( "src/main/resources" );
+        final Path sourceDir = Path.of( "src/main/resources/myapp" );
+        final MigrationResult migrationResult = new MigrationExecutor( sourceDir ).migrate();
 
-        new ApplicationMigrator().migrate( sourceDir.resolve( "application.xml" ) );
-        new PartMigrator().migrate( sourceDir.resolve( "part.xml" ) );
+        migrationResult.getEntries().forEach( ( entry ) -> {
+            System.out.println( ( entry.migrated() ? "SUCCESS" : "FAILURE" ) + " " + entry.source() );
+        } );
     }
 }

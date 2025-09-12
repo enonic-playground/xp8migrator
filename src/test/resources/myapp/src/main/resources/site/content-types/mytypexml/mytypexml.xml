@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type xmlns="urn:enonic:xp:model:1.0">
+  <display-name i18n="i18n.displayName">MyContent XML</display-name>
+  <description>Description of MyContent XML</description>
+  <display-name-expression>${expression}</display-name-expression>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="myhtmlarea" type="HtmlArea">
+      <label>My HtmlArea</label>
+      <default>Enter description here</default>
+      <config>
+        <exclude>*</exclude>
+        <include>JustifyLeft JustifyRight | Bold Italic</include>
+        <allowHeadings>h2 h3 h4 h6</allowHeadings>
+      </config>
+    </input>
+    <input type="TextLine" name="text">
+      <label>TextLine Type</label>
+      <help-text i18n="i18n.text">Help Text</help-text>
+    </input>
+    <input type="Double" name="double">
+      <label>Double Type</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <min>0</min>
+        <max>255.0</max>
+      </config>
+      <default>100.0</default>
+    </input>
+    <input type="RadioButton" name="radiobutton">
+      <label>RadioButton Type</label>
+      <config>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+      </config>
+      <default>option1</default>
+    </input>
+    <input name="mycontentselector" type="ContentSelector">
+      <label>My ContentSelector</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <allowContentType>citation</allowContentType>
+        <allowContentType>portal:site</allowContentType>
+        <allowContentType>media:image</allowContentType>
+        <allowContentType>my.other.app:quote</allowContentType>
+        <allowPath>${site}/people/</allowPath>
+        <allowPath>./*</allowPath>
+        <allowPath>/quotes*</allowPath>
+        <treeMode>true</treeMode>
+        <hideToggleIcon>true</hideToggleIcon>
+      </config>
+    </input>
+    <input name="musicTrack" type="CustomSelector">
+      <label>Intro song</label>
+      <default>abc</default>
+      <config>
+        <service>spotify-music-selector</service>
+        <param value="genre">classic</param>
+        <param value="sortBy">length</param>
+      </config>
+    </input>
+    <input name="mydate" type="Date">
+      <label>My Date</label>
+      <default>2025-08-29</default>
+    </input>
+    <input name="mydatetime" type="DateTime">
+      <label>My DateTime</label>
+      <config>
+        <timezone>true</timezone>
+      </config>
+      <default>2025-08-29T07:44:27Z</default>
+    </input>
+    <input name="mytime" type="Time">
+      <label>My Time</label>
+      <default>13:22</default>
+    </input>
+    <input  name="mycheckbox" type="CheckBox">
+      <label>My Checkbox</label>
+      <default>checked</default>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
+    <input name="myImageSelector" type="ImageSelector">
+      <label>My ImageSelector</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowPath>${site}/*</allowPath>
+        <treeMode>true</treeMode>
+        <hideToggleIcon>true</hideToggleIcon>
+      </config>
+    </input>
+    <input name="myMediaSelector" type="MediaSelector">
+      <label>My MediaSelector</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allow-content-type>media:image</allow-content-type>
+        <allow-content-type>media:video</allow-content-type>
+        <allowPath>${site}/*</allowPath>
+        <treeMode>true</treeMode>
+        <hideToggleIcon>true</hideToggleIcon>
+      </config>
+    </input>
+  </form>
+</content-type>

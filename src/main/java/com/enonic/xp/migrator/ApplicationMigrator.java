@@ -10,10 +10,10 @@ import com.enonic.xp.migrator.xml.parser.XmlApplicationParser;
 import com.enonic.xp.migrator.yml.ApplicationDescriptorYml;
 
 public class ApplicationMigrator
-    extends MigratorBase
+    extends DescriptorMigrator
 {
     @Override
-    public Object doMigrate( final Path source )
+    public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
     {
         final ApplicationDescriptor.Builder appDescriptorBuilder = ApplicationDescriptor.create();
@@ -21,7 +21,7 @@ public class ApplicationMigrator
         final XmlApplicationParser parser = new XmlApplicationParser();
 
         parser.appDescriptorBuilder( appDescriptorBuilder );
-        parser.currentApplication( ApplicationKey.from( "myapp" ) );
+        parser.currentApplication( currentApplication );
         parser.source( Files.readString( source ) );
         parser.parse();
 

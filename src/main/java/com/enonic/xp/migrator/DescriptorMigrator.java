@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 
+import com.enonic.xp.app.ApplicationKey;
 import com.enonic.xp.form.Form;
 import com.enonic.xp.form.FormItem;
 import com.enonic.xp.form.Occurrences;
@@ -19,7 +20,7 @@ import com.enonic.xp.migrator.yml.mixin.LocalizedTextSerializer;
 import com.enonic.xp.migrator.yml.mixin.OccurrencesSerializer;
 import com.enonic.xp.schema.LocalizedText;
 
-public abstract class MigratorBase
+public abstract class DescriptorMigrator
 {
     private static final ObjectMapper MAPPER =
         new ObjectMapper( new YAMLFactory().disable( YAMLGenerator.Feature.WRITE_DOC_START_MARKER ) );
@@ -36,11 +37,11 @@ public abstract class MigratorBase
         MAPPER.registerModule( module );
     }
 
-    public void migrate( final Path source )
+    public void migrate( ApplicationKey currentApplication, final Path source )
     {
         try
         {
-            final Object yaml = doMigrate( source );
+            final Object yaml = doMigrate( currentApplication, source );
             MAPPER.writeValue( resolveFile( source ), yaml );
         }
         catch ( IOException e )
@@ -49,7 +50,7 @@ public abstract class MigratorBase
         }
     }
 
-    public abstract Object doMigrate( final Path source )
+    public abstract Object doMigrate( ApplicationKey currentApplication, final Path source )
         throws IOException;
 
     private File resolveFile( final Path source )
