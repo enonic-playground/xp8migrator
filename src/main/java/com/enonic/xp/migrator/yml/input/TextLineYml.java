@@ -1,9 +1,9 @@
-package com.enonic.xp.migrator.yml.mixin;
+package com.enonic.xp.migrator.yml.input;
 
 import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
-public class TextLine
+public class TextLineYml
     extends InputYml
 {
     public Integer maxLength;
@@ -12,7 +12,7 @@ public class TextLine
 
     public Boolean showCounter;
 
-    public TextLine( final Input source )
+    public TextLineYml( final Input source )
     {
         super( source );
 
@@ -25,7 +25,7 @@ public class TextLine
 
         if ( config.getValue( "regexp" ) != null )
         {
-            regexp = config.getValue( "regexp", String.class );
+            regexp = config.getValue( "regexp" );
         }
 
         if ( config.getValue( "showCounter" ) != null )

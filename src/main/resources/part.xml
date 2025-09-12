@@ -3,12 +3,157 @@
   <display-name i18n="key.display-name">A Part</display-name>
   <description>My Part Description</description>
   <form>
+    <input name="mytime" type="Time">
+      <label>My Time</label>
+      <default>13:22</default>
+    </input>
+
+    <input name="mytextarea" type="TextArea">
+      <label>My TextArea</label>
+      <default>Default text goes here</default>
+      <config>
+        <max-length>42</max-length>
+        <show-counter>true</show-counter>
+      </config>
+    </input>
+
+    <input name="mytag" type="Tag">
+      <label>My Tag</label>
+      <occurrences minimum="0" maximum="0"/>
+    </input>
+
+    <input name="myradiobutton" type="RadioButton">
+      <label>My RadioButton</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="one" i18n="option_one.label">Option One</option>
+        <option value="two" i18n="option_two.label">Option Two</option>
+      </config>
+      <default>one</default>
+    </input>
+
+    <input name="mymedia" type="MediaSelector">
+      <label>My Media</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowContentType>media:archive</allowContentType>
+        <allowPath>${site}/*</allowPath>
+        <treeMode>true</treeMode>
+        <hideToggleIcon>true</hideToggleIcon>
+      </config>
+    </input>
+
+    <input name="mylong" type="Long">
+      <label>My Long</label>
+      <default>42</default>
+    </input>
+
+    <input name="degrees" type="Long">
+      <label>Degrees</label>
+      <config>
+        <min>0</min>
+        <max>360</max>
+      </config>
+    </input>
+
+    <input name="myimage" type="ImageSelector">
+      <label>My Image</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowPath>${site}/*</allowPath>
+        <treeMode>true</treeMode>
+        <hideToggleIcon>true</hideToggleIcon>
+      </config>
+    </input>
+    <input name="myhtmlarea" type="HtmlArea">
+      <label>My HtmlArea</label>
+      <default><h3>Enter description here</h3></default>
+      <config>
+        <exclude>*</exclude>
+        <include>JustifyLeft JustifyRight | Bold Italic</include>
+        <allowHeadings>h2 h4 h6</allowHeadings>
+      </config>
+    </input>
+    <input name="mygeopoint" type="GeoPoint">
+      <label>My GeoPoint</label>
+      <occurrences minimum="0" maximum="1"/>
+      <default>51.5,-0.1</default>
+    </input>
+    <input name="mydouble" type="Double">
+      <label>My Double</label>
+      <default>3.89</default>
+    </input>
+    <input name="angle" type="Double">
+      <label>Angle (rad)</label>
+      <config>
+        <min>0</min>
+        <max>3.14159</max>
+      </config>
+    </input>
+    <input name="mycontentselector" type="ContentSelector">
+      <label>My ContentSelector</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <allow-content-type>citation</allow-content-type>
+        <allowContentType>my.other.app:quote</allowContentType>
+        <allowPath>${site}/people/</allowPath>
+        <allowPath>./*</allowPath>
+        <allowPath>/quotes*</allowPath>
+        <treeMode>true</treeMode>
+        <hideToggleIcon>true</hideToggleIcon>
+      </config>
+    </input>
     <input type="TextLine" name="myTextLine">
       <label i18n="key.label">My TextLine</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
         <max-length>50</max-length>
       </config>
+    </input>
+    <input  name="mycheckbox" type="CheckBox">
+      <label>My Checkbox</label>
+      <default>checked</default>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
+    <input name="mycombobox" type="ComboBox">
+      <label>My Combobox</label>
+      <occurrences minimum="1" maximum="2"/>
+      <config>
+        <option value="one" i18n="i18n.key">Option One</option>
+        <option value="two">Option Two</option>
+      </config>
+      <default>one</default>
+    </input>
+    <input name="myctyfilter" type="ContentTypeFilter">
+      <label>My CTYFilter</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <context>true</context>
+      </config>
+    </input>
+    <input name="musicTrack" type="CustomSelector">
+      <label>Intro song</label>
+      <config>
+        <service>spotify-music-selector</service>
+        <param value="genre">classic</param>
+        <param value="sortBy">length</param>
+      </config>
+    </input>
+    <input name="mydatetime" type="DateTime">
+      <label>My DateTime</label>
+      <config>
+        <timezone>true</timezone>
+      </config>
+      <default>2025-08-29T07:44:27Z</default>
+    </input>
+    <input name="mydate" type="Date">
+      <label>My Date</label>
+      <default>2011-09-12</default>
+    </input>
+    <input name="myattachment" type="AttachmentUploader">
+      <label>My AttachmentUploader</label>
     </input>
     <item-set name="panel">
       <label i18n="article.storypanel">Panel</label>
