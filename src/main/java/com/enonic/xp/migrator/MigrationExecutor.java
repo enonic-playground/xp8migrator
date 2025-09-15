@@ -22,18 +22,27 @@ public final class MigrationExecutor
         }
     };
 
-    private static final List<DescriptorConfig> DESCRIPTORS =
-        List.of( new DirDescriptorConfig( "site/parts", PartMigrator::new ), new DirDescriptorConfig( "site/content-types", FAKE_MIGRATOR ),
-                 new DirDescriptorConfig( "site/layouts", FAKE_MIGRATOR ), new DirDescriptorConfig( "site/mixins", FAKE_MIGRATOR ),
-                 new DirDescriptorConfig( "site/pages", FAKE_MIGRATOR ), new DirDescriptorConfig( "site/x-data", FAKE_MIGRATOR ),
-                 new DirDescriptorConfig( "site/macros", FAKE_MIGRATOR ), new DirDescriptorConfig( "tasks", FAKE_MIGRATOR ),
-                 new DirDescriptorConfig( "admin/tools", FAKE_MIGRATOR ), new DirDescriptorConfig( "admin/widgets", FAKE_MIGRATOR ),
-                 new DirDescriptorConfig( "services", FAKE_MIGRATOR ), new DirDescriptorConfig( "apis", FAKE_MIGRATOR ),
-                 new FileDescriptorConfig( "application.xml", ApplicationMigrator::new ),
-                 new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ),
-                 new FileDescriptorConfig( "site/styles.xml", StyleDescriptorMigrator::new ),
-                 new FileDescriptorConfig( "idprovider/idprovider.xml", FAKE_MIGRATOR ),
-                 new FileDescriptorConfig( "webapp/webapp.xml", FAKE_MIGRATOR ) );
+    private static final List<DescriptorConfig> DESCRIPTORS = List.of( new DirDescriptorConfig( "site/parts", PartMigrator::new ),
+                                                                       new DirDescriptorConfig( "site/content-types",
+                                                                                                ContentTypeMigrator::new ),
+                                                                       new DirDescriptorConfig( "site/layouts", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "site/mixins", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "site/pages", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "site/x-data", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "site/macros", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "tasks", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "admin/tools", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "admin/widgets", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "services", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "apis", FAKE_MIGRATOR ),
+                                                                       new FileDescriptorConfig( "application.xml",
+                                                                                                 ApplicationMigrator::new ),
+                                                                       new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ),
+                                                                       new FileDescriptorConfig( "site/styles.xml",
+                                                                                                 StyleDescriptorMigrator::new ),
+                                                                       new FileDescriptorConfig( "idprovider/idprovider.xml",
+                                                                                                 FAKE_MIGRATOR ),
+                                                                       new FileDescriptorConfig( "webapp/webapp.xml", FAKE_MIGRATOR ) );
 
     private final Path projectPath;
 

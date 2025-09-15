@@ -29,7 +29,7 @@ public class CustomSelectorYml
 
         final Set<InputTypeProperty> paramProperties = inputTypeConfig.getProperties( "param" );
 
-        if ( paramProperties != null )
+        if ( paramProperties != null && !paramProperties.isEmpty() )
         {
             params = new LinkedHashMap<>();
             paramProperties.forEach( param -> params.put( param.getAttribute( "value" ), param.getValue() ) );

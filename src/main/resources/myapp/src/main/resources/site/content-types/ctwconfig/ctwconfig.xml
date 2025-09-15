@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type xmlns="urn:enonic:xp:model:1.0">
+  <display-name>CWT Config</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="text" type="HtmlArea">
+      <label>Text</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <exclude>*</exclude>
+        <include>Format | Bold Italic Strike RemoveFormat | BulletedList NumberedList Blockquote | Subscript Superscript | SpecialChar
+          Anchor Image Macro Link Unlink | Table
+        </include>
+        <allowHeadings>h2 h3 h4</allowHeadings>
+      </config>
+    </input>
+    <input name="firstName" type="TextLine">
+      <label>First Name</label>
+    </input>
+    <input name="lastName" type="TextLine">
+      <label>Last Name</label>
+    </input>
+    <input name="city" type="TextLine">
+      <label>City</label>
+    </input>
+  </form>
+</content-type>

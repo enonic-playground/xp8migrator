@@ -36,13 +36,13 @@ public class ContentSelectorYml
         }
 
         final Set<InputTypeProperty> allowContentTypeValues = config.getProperties( "allowContentType" );
-        if ( allowContentTypeValues != null )
+        if ( allowContentTypeValues != null && !allowContentTypeValues.isEmpty() )
         {
             allowContentType = allowContentTypeValues.stream().map( InputTypeProperty::getValue ).collect( Collectors.toList() );
         }
 
         final Set<InputTypeProperty> allowPathValues = config.getProperties( "allowPath" );
-        if ( allowPathValues != null )
+        if ( allowPathValues != null && !allowPathValues.isEmpty() )
         {
             allowPath = allowPathValues.stream().map( InputTypeProperty::getValue ).collect( Collectors.toList() );
         }

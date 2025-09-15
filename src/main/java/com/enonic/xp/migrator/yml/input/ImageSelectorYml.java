@@ -34,7 +34,7 @@ public class ImageSelectorYml
         }
 
         final Set<InputTypeProperty> allowPathValues = config.getProperties( "allowPath" );
-        if ( allowPathValues != null )
+        if ( allowPathValues != null && !allowPathValues.isEmpty() )
         {
             allowPath = allowPathValues.stream().map( InputTypeProperty::getValue ).collect( Collectors.toList() );
         }
