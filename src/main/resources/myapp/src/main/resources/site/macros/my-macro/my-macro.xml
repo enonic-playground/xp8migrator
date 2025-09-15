@@ -1,0 +1,13 @@
+<macro>
+  <display-name i18n="a-macro.display-name">Current user</display-name>
+  <description i18n="a-macro.description">Shows currently logged user</description>
+
+  <form>
+    <input name="body" type="TextLine">
+      <label>Macro body</label>
+    </input>
+    <input name="defaultText" type="TextLine">
+      <label>Text to show if no user logged in</label>
+    </input>
+  </form>
+</macro>
