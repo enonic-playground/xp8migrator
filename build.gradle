@@ -1,5 +1,7 @@
 plugins {
     id 'com.enonic.xp.app' version '3.5.2'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 app {
@@ -25,4 +27,14 @@ repositories {
     mavenLocal()
     mavenCentral()
     xp.enonicRepo()
+}
+
+application {
+    mainClass = 'com.enonic.xp.migrator.Main'
+}
+
+shadowJar {
+    archiveBaseName.set( "migrator" )
+    archiveVersion.set( "" )
+    archiveClassifier.set( "" )
 }
