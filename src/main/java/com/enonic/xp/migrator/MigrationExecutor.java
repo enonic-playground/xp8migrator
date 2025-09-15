@@ -31,7 +31,7 @@ public final class MigrationExecutor
                  new DirDescriptorConfig( "services", FAKE_MIGRATOR ), new DirDescriptorConfig( "apis", FAKE_MIGRATOR ),
                  new FileDescriptorConfig( "application.xml", ApplicationMigrator::new ),
                  new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ),
-                 new FileDescriptorConfig( "site/styles.xml", FAKE_MIGRATOR ),
+                 new FileDescriptorConfig( "site/styles.xml", StyleDescriptorMigrator::new ),
                  new FileDescriptorConfig( "idprovider/idprovider.xml", FAKE_MIGRATOR ),
                  new FileDescriptorConfig( "webapp/webapp.xml", FAKE_MIGRATOR ) );
 
