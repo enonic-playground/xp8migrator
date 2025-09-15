@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+  <display-name>Meny</display-name>
+  <form>
+    <option-set name="showInMenu">
+      <label>Vis i menyen</label>
+      <expanded>false</expanded>
+      <occurrences minimum="1" maximum="1"/>
+      <options minimum="1" maximum="1">
+        <option name="true1">
+          <label>Ja</label>
+          <items>
+            <input type="TextLine" name="menuName">
+              <label>Overstyr navn i menyen</label>
+              <help-text>Overstyr navn som vises i menyen. Ikke påkrevd.</help-text>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
+            <input type="ComboBox" name="position">
+              <label>Plassering</label>
+              <occurrences minimum="0" maximum="1"/>
+              <config>
+                <option value="default">Hovedmeny</option>
+                <option value="support">Støttemeny</option>
+                <option value="breadcrumbOnly">Kun i brødsmulesti</option>
+              </config>
+              <default>default</default>
+            </input>
+          </items>
+        </option>
+        <option name="false1">
+          <label>Nei</label>
+          <default>true</default>
+        </option>
+      </options>
+    </option-set>
+    <input name="disableBreadcrumbs" type="CheckBox">
+      <label>Fjern brødsmulesti</label>
+      <occurrences maximum="1" minimum="1"/>
+      <default/>
+    </input>
+  </form>
+</mixin>

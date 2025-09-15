@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+  <display-name>Test Mixin</display-name>
+  <form>
+    <input type="TextLine" name="fieldFromMixin">
+      <label>Field from MIXIN</label>
+      <help-text>Field from MIXIN</help-text>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+  </form>
+</mixin>
