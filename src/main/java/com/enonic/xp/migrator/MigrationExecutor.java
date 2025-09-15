@@ -29,14 +29,14 @@ public final class MigrationExecutor
                                                                        new DirDescriptorConfig( "site/mixins",
                                                                                                 MixinDescriptorMigrator::new ),
                                                                        new DirDescriptorConfig( "site/pages", FAKE_MIGRATOR ),
-                                                                       new DirDescriptorConfig( "site/x-data", FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "site/x-data",
+                                                                                                XDataDescriptorMigrator::new ),
                                                                        new DirDescriptorConfig( "site/macros",
                                                                                                 MacroDescriptorMigrator::new ),
                                                                        new DirDescriptorConfig( "tasks", FAKE_MIGRATOR ),
                                                                        new DirDescriptorConfig( "admin/tools", FAKE_MIGRATOR ),
                                                                        new DirDescriptorConfig( "admin/widgets", FAKE_MIGRATOR ),
                                                                        new DirDescriptorConfig( "services", FAKE_MIGRATOR ),
-                                                                       new DirDescriptorConfig( "apis", FAKE_MIGRATOR ),
                                                                        new FileDescriptorConfig( "application.xml",
                                                                                                  ApplicationMigrator::new ),
                                                                        new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ),
@@ -44,6 +44,7 @@ public final class MigrationExecutor
                                                                                                  StyleDescriptorMigrator::new ),
                                                                        new FileDescriptorConfig( "idprovider/idprovider.xml",
                                                                                                  FAKE_MIGRATOR ),
+                                                                       new DirDescriptorConfig( "apis", FAKE_MIGRATOR ),
                                                                        new FileDescriptorConfig( "webapp/webapp.xml", FAKE_MIGRATOR ) );
 
     private final Path projectPath;

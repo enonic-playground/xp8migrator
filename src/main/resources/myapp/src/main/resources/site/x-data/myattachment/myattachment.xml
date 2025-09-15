@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x-data>
+  <display-name>My Own Attachment X-DATA</display-name>
+  <form>
+    <input name="myOwnAttachment" type="AttachmentUploader">
+      <label>My Own Attachment</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <mixin name="common"/>
+  </form>
+</x-data>
