@@ -1,7 +1,10 @@
 package com.enonic.xp.migrator.yml;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.enonic.xp.form.InlineMixin;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class InlineMixinYml
     extends FormItemYml
 {

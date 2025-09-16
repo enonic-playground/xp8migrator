@@ -41,7 +41,7 @@ public final class MigrationExecutor
         DESCRIPTORS.add( new FileDescriptorConfig( "application.xml", ApplicationMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "site/styles.xml", StyleDescriptorMigrator::new ) );
-        DESCRIPTORS.add( new FileDescriptorConfig( "idprovider/idprovider.xml", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new FileDescriptorConfig( "idprovider/idprovider.xml", IdProviderDescriptorMigrator::new ) );
         DESCRIPTORS.add( new DirDescriptorConfig( "apis", FAKE_MIGRATOR ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "webapp/webapp.xml", FAKE_MIGRATOR ) );
     }
