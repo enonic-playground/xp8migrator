@@ -37,7 +37,7 @@ public final class MigrationExecutor
         DESCRIPTORS.add( new DirDescriptorConfig( "tasks", TaskDescriptorMigrator::new ) );
         DESCRIPTORS.add( new DirDescriptorConfig( "admin/tools", FAKE_MIGRATOR ) );
         DESCRIPTORS.add( new DirDescriptorConfig( "admin/widgets", FAKE_MIGRATOR ) );
-        DESCRIPTORS.add( new DirDescriptorConfig( "services", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "services", ServiceDescriptorMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "application.xml", ApplicationMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "site/styles.xml", StyleDescriptorMigrator::new ) );
