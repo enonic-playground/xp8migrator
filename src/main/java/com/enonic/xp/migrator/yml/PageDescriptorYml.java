@@ -6,16 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.enonic.xp.form.Form;
 import com.enonic.xp.inputtype.InputTypeConfig;
-import com.enonic.xp.region.LayoutDescriptor;
+import com.enonic.xp.page.PageDescriptor;
 import com.enonic.xp.region.RegionDescriptors;
 import com.enonic.xp.schema.LocalizedText;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LayoutDescriptorYml
+public class PageDescriptorYml
 {
     public LocalizedText displayName;
 
@@ -27,7 +26,7 @@ public class LayoutDescriptorYml
 
     public List<Map<String, String>> config;
 
-    public LayoutDescriptorYml( final LayoutDescriptor descriptor )
+    public PageDescriptorYml( final PageDescriptor descriptor )
     {
         displayName = LocalizeHelper.localizeProperty( descriptor.getDisplayName(), descriptor.getDisplayNameI18nKey() );
         description = LocalizeHelper.localizeProperty( descriptor.getDescription(), descriptor.getDescriptionI18nKey() );

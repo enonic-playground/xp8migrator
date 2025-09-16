@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -22,31 +23,28 @@ public final class MigrationExecutor
         }
     };
 
-    private static final List<DescriptorConfig> DESCRIPTORS = List.of( new DirDescriptorConfig( "site/parts", PartMigrator::new ),
-                                                                       new DirDescriptorConfig( "site/content-types",
-                                                                                                ContentTypeMigrator::new ),
-                                                                       new DirDescriptorConfig( "site/layouts",
-                                                                                                LayoutDescriptorMigrator::new ),
-                                                                       new DirDescriptorConfig( "site/mixins",
-                                                                                                MixinDescriptorMigrator::new ),
-                                                                       new DirDescriptorConfig( "site/pages", FAKE_MIGRATOR ),
-                                                                       new DirDescriptorConfig( "site/x-data",
-                                                                                                XDataDescriptorMigrator::new ),
-                                                                       new DirDescriptorConfig( "site/macros",
-                                                                                                MacroDescriptorMigrator::new ),
-                                                                       new DirDescriptorConfig( "tasks", FAKE_MIGRATOR ),
-                                                                       new DirDescriptorConfig( "admin/tools", FAKE_MIGRATOR ),
-                                                                       new DirDescriptorConfig( "admin/widgets", FAKE_MIGRATOR ),
-                                                                       new DirDescriptorConfig( "services", FAKE_MIGRATOR ),
-                                                                       new FileDescriptorConfig( "application.xml",
-                                                                                                 ApplicationMigrator::new ),
-                                                                       new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ),
-                                                                       new FileDescriptorConfig( "site/styles.xml",
-                                                                                                 StyleDescriptorMigrator::new ),
-                                                                       new FileDescriptorConfig( "idprovider/idprovider.xml",
-                                                                                                 FAKE_MIGRATOR ),
-                                                                       new DirDescriptorConfig( "apis", FAKE_MIGRATOR ),
-                                                                       new FileDescriptorConfig( "webapp/webapp.xml", FAKE_MIGRATOR ) );
+    private static final List<DescriptorConfig> DESCRIPTORS = new ArrayList<>();
+
+    static
+    {
+        DESCRIPTORS.add( new DirDescriptorConfig( "site/parts", PartMigrator::new ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "site/content-types", ContentTypeMigrator::new ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "site/layouts", LayoutDescriptorMigrator::new ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "site/mixins", MixinDescriptorMigrator::new ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "site/pages", PageDescriptorMigrator::new ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "site/x-data", XDataDescriptorMigrator::new ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "site/macros", MacroDescriptorMigrator::new ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "tasks", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "admin/tools", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "admin/widgets", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "services", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new FileDescriptorConfig( "application.xml", ApplicationMigrator::new ) );
+        DESCRIPTORS.add( new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ) );
+        DESCRIPTORS.add( new FileDescriptorConfig( "site/styles.xml", StyleDescriptorMigrator::new ) );
+        DESCRIPTORS.add( new FileDescriptorConfig( "idprovider/idprovider.xml", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "apis", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new FileDescriptorConfig( "webapp/webapp.xml", FAKE_MIGRATOR ) );
+    }
 
     private final Path projectPath;
 
