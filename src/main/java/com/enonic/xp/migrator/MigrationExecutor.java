@@ -6,23 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import com.enonic.xp.app.ApplicationKey;
 
 public final class MigrationExecutor
 {
-    private static final Supplier<DescriptorMigrator> FAKE_MIGRATOR = () -> new DescriptorMigrator()
-    {
-        @Override
-        public Object doMigrate( final ApplicationKey currentApplication, final Path source )
-            throws IOException
-        {
-            throw new UnsupportedOperationException( "Not supported yet" );
-        }
-    };
-
     private static final List<DescriptorConfig> DESCRIPTORS = new ArrayList<>();
 
     static
@@ -42,8 +31,8 @@ public final class MigrationExecutor
         DESCRIPTORS.add( new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "site/styles.xml", StyleDescriptorMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "idprovider/idprovider.xml", IdProviderDescriptorMigrator::new ) );
-        DESCRIPTORS.add( new DirDescriptorConfig( "apis", FAKE_MIGRATOR ) );
-        DESCRIPTORS.add( new FileDescriptorConfig( "webapp/webapp.xml", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "apis", ApiDescriptorMigrator::new ) );
+        DESCRIPTORS.add( new FileDescriptorConfig( "webapp/webapp.xml", WebappDescriptorMigrator::new ) );
     }
 
     private final Path projectPath;
