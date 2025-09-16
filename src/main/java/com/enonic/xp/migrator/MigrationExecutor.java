@@ -35,8 +35,8 @@ public final class MigrationExecutor
         DESCRIPTORS.add( new DirDescriptorConfig( "site/x-data", XDataDescriptorMigrator::new ) );
         DESCRIPTORS.add( new DirDescriptorConfig( "site/macros", MacroDescriptorMigrator::new ) );
         DESCRIPTORS.add( new DirDescriptorConfig( "tasks", TaskDescriptorMigrator::new ) );
-        DESCRIPTORS.add( new DirDescriptorConfig( "admin/tools", FAKE_MIGRATOR ) );
-        DESCRIPTORS.add( new DirDescriptorConfig( "admin/widgets", FAKE_MIGRATOR ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "admin/tools", AdminToolDescriptorMigrator::new ) );
+        DESCRIPTORS.add( new DirDescriptorConfig( "admin/widgets", WidgetDescriptorMigrator::new ) );
         DESCRIPTORS.add( new DirDescriptorConfig( "services", ServiceDescriptorMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "application.xml", ApplicationMigrator::new ) );
         DESCRIPTORS.add( new FileDescriptorConfig( "site/site.xml", SiteMigrator::new ) );
