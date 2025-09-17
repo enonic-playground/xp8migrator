@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
+import com.enonic.xp.form.FieldSet;
 import com.enonic.xp.form.FormItem;
 import com.enonic.xp.form.FormItemType;
 import com.enonic.xp.form.Input;
@@ -77,9 +78,17 @@ public class FormItemSerializer
             case FORM_ITEM_SET -> gen.writeObject( new FormItemSetYml( formItem.toFormItemSet() ) );
             case FORM_OPTION_SET -> gen.writeObject( new FormOptionSetYml( formItem.toFormOptionSet() ) );
             case FORM_OPTION_SET_OPTION -> gen.writeObject( new FormOptionSetOptionYml( formItem.toFormOptionSetOption() ) );
-            case LAYOUT -> gen.writeObject( new FieldSetYml( formItem.toLayout() ) );
             case MIXIN_REFERENCE -> gen.writeObject( new InlineMixinYml( formItem.toInlineMixin() ) );
             case INPUT -> gen.writeObject( convertInputToYml( formItem.toInput() ) );
+            case LAYOUT ->
+            {
+                if ( !( formItem instanceof FieldSet ) )
+                {
+                    throw new IllegalArgumentException(
+                        "This FormItem [" + formItem.getName() + "] is not a FieldSet: " + formItem.getClass().getSimpleName() );
+                }
+                gen.writeObject( new FieldSetYml( (FieldSet) formItem ) );
+            }
             default -> throw new IllegalArgumentException( "Unsupported FormItemType: " + type );
         }
     }

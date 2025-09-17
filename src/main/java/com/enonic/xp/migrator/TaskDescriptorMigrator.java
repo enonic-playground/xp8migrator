@@ -6,9 +6,9 @@ import java.nio.file.Path;
 
 import com.enonic.xp.app.ApplicationKey;
 import com.enonic.xp.descriptor.DescriptorKey;
-import com.enonic.xp.migrator.xml.parser.XmlTaskDescriptorParser;
 import com.enonic.xp.migrator.yml.TaskDescriptorYml;
 import com.enonic.xp.task.TaskDescriptor;
+import com.enonic.xp.xml.parser.XmlTaskDescriptorParser;
 
 public class TaskDescriptorMigrator
     extends DescriptorMigrator

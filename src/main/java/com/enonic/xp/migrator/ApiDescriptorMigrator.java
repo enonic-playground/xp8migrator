@@ -7,8 +7,8 @@ import java.nio.file.Path;
 import com.enonic.xp.api.ApiDescriptor;
 import com.enonic.xp.app.ApplicationKey;
 import com.enonic.xp.descriptor.DescriptorKey;
-import com.enonic.xp.migrator.xml.parser.XmlApiDescriptorParser;
 import com.enonic.xp.migrator.yml.ApiDescriptorYml;
+import com.enonic.xp.xml.parser.XmlApiDescriptorParser;
 
 public class ApiDescriptorMigrator
     extends DescriptorMigrator

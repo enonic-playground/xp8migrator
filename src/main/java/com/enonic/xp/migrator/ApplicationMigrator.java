@@ -6,8 +6,8 @@ import java.nio.file.Path;
 
 import com.enonic.xp.app.ApplicationDescriptor;
 import com.enonic.xp.app.ApplicationKey;
-import com.enonic.xp.migrator.xml.parser.XmlApplicationParser;
 import com.enonic.xp.migrator.yml.ApplicationDescriptorYml;
+import com.enonic.xp.xml.parser.XmlApplicationParser;
 
 public class ApplicationMigrator
     extends DescriptorMigrator
@@ -26,7 +26,6 @@ public class ApplicationMigrator
         parser.parse();
 
         final ApplicationDescriptor descriptor = appDescriptorBuilder.build();
-
         return new ApplicationDescriptorYml( descriptor );
     }
 }

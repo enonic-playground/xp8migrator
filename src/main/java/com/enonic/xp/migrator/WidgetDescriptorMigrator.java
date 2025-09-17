@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.enonic.xp.admin.widget.WidgetDescriptor;
+import com.enonic.xp.admin.widget.XmlWidgetDescriptorParser;
 import com.enonic.xp.app.ApplicationKey;
 import com.enonic.xp.descriptor.DescriptorKey;
-import com.enonic.xp.migrator.xml.parser.XmlWidgetDescriptorParser;
 import com.enonic.xp.migrator.yml.WidgetDescriptorYml;
 
 public class WidgetDescriptorMigrator

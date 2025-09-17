@@ -1,0 +1,135 @@
+package com.enonic.xp.xml.parser;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import com.google.common.base.Preconditions;
+import com.google.common.io.CharSource;
+import com.google.common.io.Files;
+import com.google.common.io.Resources;
+
+import com.enonic.xp.xml.DomElement;
+import com.enonic.xp.xml.DomHelper;
+import com.enonic.xp.xml.XmlException;
+import com.enonic.xp.xml.schema.SchemaValidator;
+
+public abstract class XmlObjectParser<P extends XmlObjectParser<P>>
+{
+    private static final SchemaValidator VALIDATOR = new SchemaValidator();
+
+    private String systemId;
+
+    private CharSource source;
+
+    @SuppressWarnings("unchecked")
+    protected final P typecastThis()
+    {
+        return (P) this;
+    }
+
+    public final P systemId( final String systemId )
+    {
+        this.systemId = systemId;
+        return typecastThis();
+    }
+
+    @Deprecated
+    public final P source( final URL url )
+    {
+        systemId( url.toString() );
+        source( Resources.asCharSource( url, StandardCharsets.UTF_8 ) );
+        return typecastThis();
+    }
+
+    public final P source( final String source )
+    {
+        return source( CharSource.wrap( source ) );
+    }
+
+    public final P source( final CharSource source )
+    {
+        this.source = source;
+        return typecastThis();
+    }
+
+    @Deprecated
+    public final P source( final File file )
+    {
+        try
+        {
+            systemId( file.toURI().toURL().toString() );
+            return source( Files.asCharSource( file, StandardCharsets.UTF_8 ) );
+        }
+        catch ( final MalformedURLException e )
+        {
+            throw new IllegalArgumentException( e );
+        }
+    }
+
+    public final P parse()
+    {
+        try
+        {
+            return doParse();
+        }
+        catch ( final Exception e )
+        {
+            throw new XmlException( e );
+        }
+    }
+
+    private P doParse()
+        throws Exception
+    {
+        final DocumentBuilder builder = DomHelper.newDocumentBuilder();
+
+        final InputSource source = new InputSource();
+        source.setSystemId( this.systemId );
+        source.setCharacterStream( com.enonic.xp.xml.parser.ByteOrderMarkHelper.openStreamSkippingBOM( this.source ) );
+
+        final Document doc = builder.parse( source );
+        return doParse( doc );
+    }
+
+    private P doParse( final Document source )
+        throws Exception
+    {
+        final Document doc = validate( source );
+        doParse( DomElement.from( doc.getDocumentElement() ) );
+        return typecastThis();
+    }
+
+    private Document validate( final Document doc )
+        throws Exception
+    {
+        final DOMSource source = new DOMSource( doc );
+        source.setSystemId( this.systemId );
+
+        final DOMResult result = VALIDATOR.validate( source );
+        return (Document) result.getNode();
+    }
+
+    protected abstract void doParse( DomElement root )
+        throws Exception;
+
+    protected final void assertTagName( final DomElement elem, final String name )
+    {
+        Preconditions.checkArgument( elem.getTagName().equals( name ), "Element [" + name + "] is required" );
+    }
+
+    protected final void assertTagNames( final DomElement elem, final Collection<String> names )
+    {
+        Preconditions.checkArgument( names.stream().anyMatch( name -> elem.getTagName().equals( name ) ),
+                                     "Any of tag names: [" + String.join( ", ", names ) + "] is required" );
+    }
+}

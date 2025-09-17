@@ -1,32 +1,24 @@
 plugins {
-    id 'com.enonic.xp.app' version '3.5.2'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
-app {
-    name = "${appName}"
-    displayName = "${appDisplayName}"
-    systemVersion = "${xpVersion}"
+ext {
+    jacksonVersion = "2.19.2"
 }
 
 dependencies {
-    implementation "com.enonic.xp:core-api:${xpVersion}"
-    implementation "com.enonic.xp:admin-api:${xpVersion}"
-
+    implementation "com.google.guava:guava:33.4.8-jre"
     implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"
-
     implementation "org.slf4j:slf4j-api:2.0.17"
     implementation "ch.qos.logback:logback-classic:1.5.18"
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
-    xp.enonicRepo()
 }
 
 application {
