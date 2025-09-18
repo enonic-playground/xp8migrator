@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlPageDescriptorParser;
 public class PageDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected PageDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -28,5 +33,12 @@ public class PageDescriptorMigrator
         final PageDescriptor descriptor = builder.build();
 
         return new PageDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return resolveFileInDirectoryWithSameName( "cms", "pages" );
     }
 }

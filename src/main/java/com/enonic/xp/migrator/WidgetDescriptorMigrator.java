@@ -13,6 +13,11 @@ import com.enonic.xp.migrator.yml.WidgetDescriptorYml;
 public class WidgetDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected WidgetDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -29,5 +34,12 @@ public class WidgetDescriptorMigrator
         final WidgetDescriptor descriptor = builder.build();
 
         return new WidgetDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return changeExtensionToYml();
     }
 }

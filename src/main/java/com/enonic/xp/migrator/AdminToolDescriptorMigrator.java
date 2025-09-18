@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlAdminToolDescriptorParser;
 public class AdminToolDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected AdminToolDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -29,5 +34,12 @@ public class AdminToolDescriptorMigrator
         final AdminToolDescriptor descriptor = builder.build();
 
         return new AdminToolDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return changeExtensionToYml();
     }
 }

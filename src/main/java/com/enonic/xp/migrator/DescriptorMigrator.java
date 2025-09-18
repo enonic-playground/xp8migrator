@@ -1,8 +1,8 @@
 package com.enonic.xp.migrator;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,12 +37,26 @@ public abstract class DescriptorMigrator
         MAPPER.registerModule( module );
     }
 
-    public void migrate( ApplicationKey currentApplication, final Path source )
+    protected final ApplicationKey currentApplication;
+
+    protected final Path resourcesDir;
+
+    protected final Path source;
+
+    protected DescriptorMigrator( final MigrationParams params )
+    {
+        this.currentApplication = params.currentApplication();
+        this.resourcesDir = params.resourcesDir();
+        this.source = params.source();
+    }
+
+    public void migrate()
     {
         try
         {
             final Object yaml = doMigrate( currentApplication, source );
-            MAPPER.writeValue( resolveFile( source ), yaml );
+            final Path targetPath = resolveMigratedFilePath( source );
+            MAPPER.writeValue( targetPath.toFile(), yaml );
         }
         catch ( IOException e )
         {
@@ -53,8 +67,42 @@ public abstract class DescriptorMigrator
     public abstract Object doMigrate( ApplicationKey currentApplication, final Path source )
         throws IOException;
 
-    private File resolveFile( final Path source )
+    public abstract Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException;
+
+    protected final Path resolveFileInDirectoryWithSameName( final String... pathSegments )
+        throws IOException
     {
-        return source.getParent().resolve( source.getFileName().toString().replace( ".xml", ".yml" ) ).toFile();
+        Path base = resourcesDir;
+        for ( String pathSegment : pathSegments )
+        {
+            base = base.resolve( pathSegment );
+        }
+
+        final String targetName = source.getParent().getFileName().toString();
+        base = base.resolve( targetName );
+
+        Files.createDirectories( base );
+
+        return base.resolve( targetName + ".yml" );
+    }
+
+    protected final Path moveTo( final String... pathSegments )
+        throws IOException
+    {
+        Path base = resourcesDir;
+        for ( String pathSegment : pathSegments )
+        {
+            base = base.resolve( pathSegment );
+        }
+
+        Files.createDirectories( base );
+
+        return base.resolve( source.getFileName().toString().replace( ".xml", ".yml" ) );
+    }
+
+    protected final Path changeExtensionToYml()
+    {
+        return source.getParent().resolve( source.getFileName().toString().replace( ".xml", ".yml" ) );
     }
 }

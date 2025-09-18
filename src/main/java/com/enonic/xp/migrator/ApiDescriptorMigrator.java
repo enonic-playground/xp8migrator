@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlApiDescriptorParser;
 public class ApiDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected ApiDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -28,5 +33,12 @@ public class ApiDescriptorMigrator
         final ApiDescriptor descriptor = builder.build();
 
         return new ApiDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return changeExtensionToYml();
     }
 }

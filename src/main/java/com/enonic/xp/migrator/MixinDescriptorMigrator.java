@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlMixinParser;
 public class MixinDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected MixinDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -29,5 +34,12 @@ public class MixinDescriptorMigrator
 
         final Mixin descriptor = builder.build();
         return new MixinDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return resolveFileInDirectoryWithSameName( "form-fragments" );
     }
 }

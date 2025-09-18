@@ -1,10 +1,10 @@
 package com.enonic.xp.migrator;
 
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 public interface DescriptorConfig
 {
     String key();
 
-    Supplier<? extends DescriptorMigrator> migratorSupplier();
+    Function<MigrationParams, ? extends DescriptorMigrator> migratorSupplier();
 }

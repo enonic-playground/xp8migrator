@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlContentTypeParser;
 public class ContentTypeMigrator
     extends DescriptorMigrator
 {
+    protected ContentTypeMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -28,5 +33,12 @@ public class ContentTypeMigrator
 
         final ContentType contentType = builder.build();
         return new ContentTypeYml( contentType );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return resolveFileInDirectoryWithSameName( "cms", "content-types" );
     }
 }

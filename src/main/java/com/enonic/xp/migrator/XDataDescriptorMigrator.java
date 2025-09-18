@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlXDataParser;
 public class XDataDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected XDataDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -29,5 +34,12 @@ public class XDataDescriptorMigrator
 
         final XData descriptor = builder.build();
         return new XDataDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return resolveFileInDirectoryWithSameName( "cms", "x-data" );
     }
 }

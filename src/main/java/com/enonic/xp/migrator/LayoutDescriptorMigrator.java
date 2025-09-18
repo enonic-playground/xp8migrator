@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlLayoutDescriptorParser;
 public class LayoutDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected LayoutDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -29,5 +34,12 @@ public class LayoutDescriptorMigrator
 
         final LayoutDescriptor descriptor = builder.build();
         return new LayoutDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return resolveFileInDirectoryWithSameName( "cms", "layouts" );
     }
 }

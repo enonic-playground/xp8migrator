@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-type xmlns="urn:enonic:xp:model:1.0">
   <display-name i18n="article.displayName">Article</display-name>
+  <description>Hello</description>
+  <display-name-expression>That is {displayName}</display-name-expression>
   <display-name-label i18n="article.title">Article heading</display-name-label>
   <super-type>base:structured</super-type>
   <form>
@@ -128,4 +130,7 @@
       </items>
     </field-set>
   </form>
+  <config>
+    <list-title-expression>{displayName}-{description}</list-title-expression>
+  </config>
 </content-type>

@@ -14,6 +14,11 @@ public class SiteMigrator
     extends DescriptorMigrator
 {
 
+    protected SiteMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -30,14 +35,19 @@ public class SiteMigrator
 
         final SiteDescriptor siteDescriptor = builder.build();
 
-        final Path cmsDir = source.getParent().getParent().resolve( "cms" );
-        Files.createDirectories( cmsDir );
-
-        final Path cmsPath = cmsDir.resolve( "cms.yml" );
-        new CmsMigrator( siteDescriptor ).migrate( currentApplication, cmsPath );
+        final Path cmsPath = resourcesDir.resolve( "cms" ).resolve( "cms.yml" );
+        new CmsMigrator( siteDescriptor, new MigrationParams( currentApplication, resourcesDir, cmsPath ) ).migrate();
 
         return new SiteDescriptorYml( siteDescriptor );
 
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+
+        return moveTo( "cms" );
     }
 
     private static class CmsMigrator
@@ -45,8 +55,9 @@ public class SiteMigrator
     {
         private final SiteDescriptor siteDescriptor;
 
-        private CmsMigrator( final SiteDescriptor siteDescriptor )
+        private CmsMigrator( final SiteDescriptor siteDescriptor, final MigrationParams params )
         {
+            super( params );
             this.siteDescriptor = siteDescriptor;
         }
 
@@ -55,6 +66,13 @@ public class SiteMigrator
             throws IOException
         {
             return new CmsDescriptorYml( siteDescriptor );
+        }
+
+        @Override
+        public Path resolveMigratedFilePath( final Path sourcePath )
+            throws IOException
+        {
+            return changeExtensionToYml();
         }
     }
 }

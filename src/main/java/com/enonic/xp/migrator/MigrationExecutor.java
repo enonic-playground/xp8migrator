@@ -44,40 +44,42 @@ public final class MigrationExecutor
 
     public MigrationResult migrate()
     {
-        final MigrationResult result = new MigrationResult();
-
         final Path resourcesDir = projectPath.resolve( "src/main/resources" );
 
         final ApplicationKey currentApplication = ApplicationKey.from( "myapp" );
 
-        DESCRIPTORS.forEach( descriptorConfig -> {
-            final Path base = resourcesDir.resolve( descriptorConfig.key() );
+        final MigrationResult result = new MigrationResult();
 
-            if ( !Files.exists( base ) )
+        DESCRIPTORS.forEach( descriptorConfig -> {
+            final Path baseDirOrFilePath = resourcesDir.resolve( descriptorConfig.key() );
+
+            if ( !Files.exists( baseDirOrFilePath ) )
             {
                 return;
             }
-
-            final DescriptorMigrator migrator = descriptorConfig.migratorSupplier().get();
 
             try
             {
                 if ( descriptorConfig instanceof DirDescriptorConfig )
                 {
-                    try (Stream<Path> paths = Files.walk( base ))
+                    try (Stream<Path> paths = Files.walk( baseDirOrFilePath ))
                     {
                         paths.filter( Files::isRegularFile ).filter( p -> {
                             final Path parent = p.getParent();
                             final Path expected = parent.resolve( parent.getFileName().toString() + ".xml" );
                             return p.equals( expected );
                         } ).forEach( descriptor -> {
-                            doMigrate( result, currentApplication, migrator, descriptor );
+                            final DescriptorMigrator migrator = descriptorConfig.migratorSupplier().apply(
+                                new MigrationParams( currentApplication, resourcesDir, descriptor ) );
+                            doMigrate( result, migrator, descriptor );
                         } );
                     }
                 }
                 else
                 {
-                    doMigrate( result, currentApplication, migrator, base );
+                    final DescriptorMigrator migrator = descriptorConfig.migratorSupplier().apply(
+                        new MigrationParams( currentApplication, resourcesDir, baseDirOrFilePath ) );
+                    doMigrate( result, migrator, baseDirOrFilePath );
                 }
             }
             catch ( IOException e )
@@ -89,17 +91,17 @@ public final class MigrationExecutor
         return result;
     }
 
-    private void doMigrate( final MigrationResult result, final ApplicationKey currentApplication, final DescriptorMigrator migrator,
-                            final Path descriptor )
+    private void doMigrate( final MigrationResult result, final DescriptorMigrator migrator, final Path descriptor )
     {
         try
         {
-            migrator.migrate( currentApplication, descriptor );
+            migrator.migrate();
             result.addEntry( descriptor, true );
         }
         catch ( Exception e )
         {
             result.addEntry( descriptor, false );
+            throw e;
         }
     }
 }

@@ -12,6 +12,11 @@ import com.enonic.xp.xml.parser.XmlApplicationParser;
 public class ApplicationMigrator
     extends DescriptorMigrator
 {
+    protected ApplicationMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -27,5 +32,12 @@ public class ApplicationMigrator
 
         final ApplicationDescriptor descriptor = appDescriptorBuilder.build();
         return new ApplicationDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return changeExtensionToYml();
     }
 }

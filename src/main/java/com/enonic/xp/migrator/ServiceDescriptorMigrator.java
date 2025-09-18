@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlServiceDescriptorParser;
 public class ServiceDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected ServiceDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -28,5 +33,12 @@ public class ServiceDescriptorMigrator
         final ServiceDescriptor descriptor = builder.build();
 
         return new ServiceDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return changeExtensionToYml();
     }
 }

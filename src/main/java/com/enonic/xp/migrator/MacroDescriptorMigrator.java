@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlMacroDescriptorParser;
 public class MacroDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected MacroDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -28,5 +33,12 @@ public class MacroDescriptorMigrator
 
         final MacroDescriptor macroDescriptor = builder.build();
         return new MacroDescriptorYml( macroDescriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return resolveFileInDirectoryWithSameName( "cms", "macros" );
     }
 }

@@ -12,6 +12,11 @@ import com.enonic.xp.xml.parser.XmlIdProviderDescriptorParser;
 public class IdProviderDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected IdProviderDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -27,5 +32,12 @@ public class IdProviderDescriptorMigrator
         final IdProviderDescriptor descriptor = builder.build();
 
         return new IdProviderDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return changeExtensionToYml();
     }
 }

@@ -12,6 +12,11 @@ import com.enonic.xp.xml.parser.XmlStyleDescriptorParser;
 public class StyleDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected StyleDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -27,5 +32,12 @@ public class StyleDescriptorMigrator
 
         final StyleDescriptor styleDescriptor = builder.build();
         return new StyleDescriptorYml( styleDescriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return moveTo( "cms", "styles" );
     }
 }

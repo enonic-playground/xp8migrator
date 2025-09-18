@@ -1,22 +1,23 @@
 package com.enonic.xp.migrator.yml;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.enonic.xp.form.Form;
+import com.enonic.xp.inputtype.InputTypeConfig;
 import com.enonic.xp.schema.LocalizedText;
 import com.enonic.xp.schema.content.ContentType;
 
-import static com.google.common.base.Strings.emptyToNull;
-
+@JsonPropertyOrder({"superType", "abstract", "final", "allowChildContent", "displayName", "description", "form", "config"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContentTypeYml
 {
     public String superType;
-
-    public DisplayNameYml displayName;
 
     @JsonProperty("abstract")
     public Boolean abstractValue;
@@ -26,20 +27,20 @@ public class ContentTypeYml
 
     public Boolean allowChildContent;
 
-    public LocalizedText label;
+    public LocalizedText displayName;
 
     public LocalizedText description;
 
     public List<String> allowChildContentType;
+
+    public Map<String, Object> config = new LinkedHashMap<>();
 
     public Form form;
 
     public ContentTypeYml( final ContentType descriptor )
     {
         superType = descriptor.getSuperType().toString();
-        displayName =
-            new DisplayNameYml( descriptor.getDisplayName(), descriptor.getDisplayNameI18nKey(), descriptor.getDisplayNameExpression() );
-        label = LocalizeHelper.localizeProperty( descriptor.getDisplayNameLabel(), descriptor.getDisplayNameLabelI18nKey() );
+        displayName = LocalizeHelper.localizeProperty( descriptor.getDisplayName(), descriptor.getDisplayNameI18nKey() );
         description = LocalizeHelper.localizeProperty( descriptor.getDescription(), descriptor.getDescriptionI18nKey() );
         abstractValue = descriptor.isAbstract();
         finalValue = descriptor.isFinal();
@@ -51,22 +52,24 @@ public class ContentTypeYml
         {
             allowChildContentType = allowChildContentTypes;
         }
-    }
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class DisplayNameYml
-    {
-        public String text;
+        final LocalizedText displayNamePlaceholder =
+            LocalizeHelper.localizeProperty( descriptor.getDisplayNameLabel(), descriptor.getDisplayNameLabelI18nKey() );
 
-        public String i18n;
-
-        public String expression;
-
-        public DisplayNameYml( final String text, final String i18n, final String expression )
+        if ( displayNamePlaceholder != null )
         {
-            this.text = emptyToNull( text );
-            this.i18n = emptyToNull( i18n );
-            this.expression = emptyToNull( expression );
+            config.put( "displayNamePlaceholder", displayNamePlaceholder );
+        }
+
+        if ( descriptor.getDisplayNameExpression() != null )
+        {
+            config.put( "displayNameExpression", descriptor.getDisplayNameExpression() );
+        }
+
+        final InputTypeConfig schemaConfig = descriptor.getSchemaConfig();
+        if ( schemaConfig != null )
+        {
+            schemaConfig.iterator().forEachRemaining( property -> config.put( property.getName(), property.getValue() ) );
         }
     }
 }

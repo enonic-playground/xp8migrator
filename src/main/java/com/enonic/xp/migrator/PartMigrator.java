@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlPartDescriptorParser;
 public class PartMigrator
     extends DescriptorMigrator
 {
+    protected PartMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -25,9 +30,16 @@ public class PartMigrator
         parser.currentApplication( currentApplication );
         parser.source( Files.readString( source ) );
         parser.parse();
-        builder.key( DescriptorKey.from( currentApplication, source.getFileName().toString() ) );
+        builder.key( DescriptorKey.from( currentApplication, "_TEMP_" ) );
 
         final PartDescriptor descriptor = builder.build();
         return new PartDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return resolveFileInDirectoryWithSameName( "cms", "parts" );
     }
 }

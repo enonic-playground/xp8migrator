@@ -13,6 +13,11 @@ import com.enonic.xp.xml.parser.XmlTaskDescriptorParser;
 public class TaskDescriptorMigrator
     extends DescriptorMigrator
 {
+    protected TaskDescriptorMigrator( final MigrationParams params )
+    {
+        super( params );
+    }
+
     @Override
     public Object doMigrate( final ApplicationKey currentApplication, final Path source )
         throws IOException
@@ -29,5 +34,12 @@ public class TaskDescriptorMigrator
         final TaskDescriptor descriptor = builder.build();
 
         return new TaskDescriptorYml( descriptor );
+    }
+
+    @Override
+    public Path resolveMigratedFilePath( final Path sourcePath )
+        throws IOException
+    {
+        return changeExtensionToYml();
     }
 }
