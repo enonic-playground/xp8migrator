@@ -9,7 +9,7 @@ import com.enonic.xp.inputtype.InputTypeConfig;
 import com.enonic.xp.inputtype.InputTypeProperty;
 
 public class ImageSelectorYml
-    extends InputYml
+    extends InputYml<String>
 {
     public List<String> allowPath;
 
@@ -19,7 +19,7 @@ public class ImageSelectorYml
 
     public ImageSelectorYml( final Input source )
     {
-        super( source );
+        super( source, String.class );
 
         final InputTypeConfig config = source.getInputTypeConfig();
 

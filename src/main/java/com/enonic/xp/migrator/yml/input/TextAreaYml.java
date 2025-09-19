@@ -4,7 +4,7 @@ import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
 public class TextAreaYml
-    extends InputYml
+    extends InputYml<String>
 {
     public Integer maxLength;
 
@@ -12,7 +12,7 @@ public class TextAreaYml
 
     public TextAreaYml( final Input source )
     {
-        super( source );
+        super( source, String.class );
 
         final InputTypeConfig config = source.getInputTypeConfig();
 

@@ -11,7 +11,7 @@ import com.enonic.xp.schema.LocalizedText;
 import static com.enonic.xp.migrator.yml.LocalizeHelper.localizeProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class InputYml
+public class InputYml<T>
 {
     public String type;
 
@@ -26,7 +26,7 @@ public class InputYml
     @JsonProperty("default")
     public Object defaultValue;
 
-    public InputYml( final Input source )
+    public InputYml( final Input source, final Class<T> inputType )
     {
         type = source.getInputType().toString();
         name = source.getName();
@@ -41,7 +41,7 @@ public class InputYml
         final InputTypeDefault inputDefaultValue = source.getDefaultValue();
         if ( inputDefaultValue != null )
         {
-            defaultValue = inputDefaultValue.getValue( "default" );
+            defaultValue = inputDefaultValue.getValue( "default", inputType );
         }
     }
 }

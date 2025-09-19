@@ -9,7 +9,7 @@ import com.enonic.xp.inputtype.InputTypeConfig;
 import com.enonic.xp.inputtype.InputTypeProperty;
 
 public class CustomSelectorYml
-    extends InputYml
+    extends InputYml<String>
 {
     public String service;
 
@@ -17,7 +17,7 @@ public class CustomSelectorYml
 
     public CustomSelectorYml( final Input source )
     {
-        super( source );
+        super( source, String.class );
 
         final InputTypeConfig inputTypeConfig = source.getInputTypeConfig();
 

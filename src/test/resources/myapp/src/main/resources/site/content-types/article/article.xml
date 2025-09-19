@@ -27,6 +27,9 @@
       <items>
         <input name="myattachment" type="Attachmentuploader">
           <label>My AttachmentUploader</label>
+          <config>
+            <supported-types>jpeg,jpg,pdf</supported-types>
+          </config>
         </input>
         <input name="author" type="TextLine">
           <label i18n="article.author">Author byline</label>

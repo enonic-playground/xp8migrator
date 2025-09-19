@@ -4,7 +4,7 @@ import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
 public class DoubleYml
-    extends InputYml
+    extends InputYml<Double>
 {
     public Double min;
 
@@ -12,7 +12,7 @@ public class DoubleYml
 
     public DoubleYml( final Input source )
     {
-        super( source );
+        super( source, Double.class );
 
         final InputTypeConfig config = source.getInputTypeConfig();
 

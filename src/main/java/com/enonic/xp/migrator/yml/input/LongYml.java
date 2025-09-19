@@ -4,7 +4,7 @@ import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
 public class LongYml
-    extends InputYml
+    extends InputYml<Long>
 {
     public Long min;
 
@@ -12,7 +12,7 @@ public class LongYml
 
     public LongYml( final Input source )
     {
-        super( source );
+        super( source, Long.class );
 
         final InputTypeConfig config = source.getInputTypeConfig();
 

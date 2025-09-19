@@ -60,6 +60,9 @@
               <help-text>Language of the widget.</help-text>
               <occurrences minimum="1" maximum="1"/>
               <config>
+                <bgColor>#eee</bgColor>
+                <theme>Dark</theme>
+                <theme>Light</theme>
                 <option value="pt-br">Brazilian Portuguese</option>
                 <option value="ca">Catalan</option>
                 <option value="zh">Chinese</option>

@@ -12,7 +12,7 @@ public class InlineMixinYml
 
     public InlineMixinYml( final InlineMixin source )
     {
-        super( "InlineMixin" );
+        super( "FormFragment" );
 
         name = source.getName();
     }

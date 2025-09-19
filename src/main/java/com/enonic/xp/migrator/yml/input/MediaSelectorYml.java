@@ -9,7 +9,7 @@ import com.enonic.xp.inputtype.InputTypeConfig;
 import com.enonic.xp.inputtype.InputTypeProperty;
 
 public class MediaSelectorYml
-    extends InputYml
+    extends InputYml<String>
 {
     public List<String> allowContentType;
 
@@ -21,7 +21,7 @@ public class MediaSelectorYml
 
     public MediaSelectorYml( final Input source )
     {
-        super( source );
+        super( source, String.class );
 
         final InputTypeConfig config = source.getInputTypeConfig();
 

@@ -4,7 +4,7 @@ import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
 public class HtmlAreaYml
-    extends InputYml
+    extends InputYml<String>
 {
     public String exclude;
 
@@ -14,7 +14,7 @@ public class HtmlAreaYml
 
     public HtmlAreaYml( final Input source )
     {
-        super( source );
+        super( source, String.class );
 
         final InputTypeConfig config = source.getInputTypeConfig();
 

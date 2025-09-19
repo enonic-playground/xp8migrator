@@ -9,13 +9,13 @@ import com.enonic.xp.inputtype.InputTypeConfig;
 import com.enonic.xp.inputtype.InputTypeProperty;
 
 public class RadioButtonYml
-    extends InputYml
+    extends InputYml<String>
 {
     public List<OptionYml> options;
 
     public RadioButtonYml( final Input source )
     {
-        super( source );
+        super( source, String.class );
 
         final InputTypeConfig inputTypeConfig = source.getInputTypeConfig();
 

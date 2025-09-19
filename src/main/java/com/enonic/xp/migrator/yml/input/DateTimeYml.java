@@ -4,13 +4,13 @@ import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
 public class DateTimeYml
-    extends InputYml
+    extends InputYml<String>
 {
     public Boolean timezone;
 
     public DateTimeYml( final Input source )
     {
-        super( source );
+        super( source, String.class );
 
         final InputTypeConfig config = source.getInputTypeConfig();
 
