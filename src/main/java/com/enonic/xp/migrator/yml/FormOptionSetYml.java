@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.enonic.xp.form.FormOptionSet;
 import com.enonic.xp.form.FormOptionSetOption;
 import com.enonic.xp.form.Occurrences;
@@ -24,6 +26,7 @@ public class FormOptionSetYml
 
     public Occurrences occurrences;
 
+    @JsonProperty("selected")
     public Occurrences multiselection;
 
     public List<FormOptionSetOptionYml> options;

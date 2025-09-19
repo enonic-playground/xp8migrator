@@ -35,11 +35,4 @@ public class WidgetDescriptorMigrator
 
         return new WidgetDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return changeExtensionToYml();
-    }
 }

@@ -35,11 +35,4 @@ public class TaskDescriptorMigrator
 
         return new TaskDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return changeExtensionToYml();
-    }
 }

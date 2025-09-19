@@ -35,19 +35,11 @@ public class SiteMigrator
 
         final SiteDescriptor siteDescriptor = builder.build();
 
-        final Path cmsPath = resourcesDir.resolve( "cms" ).resolve( "cms.yml" );
+        final Path cmsPath = resourcesDir.resolve( "site" ).resolve( "cms.yml" );
         new CmsMigrator( siteDescriptor, new MigrationParams( currentApplication, resourcesDir, cmsPath ) ).migrate();
 
         return new SiteDescriptorYml( siteDescriptor );
 
-    }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-
-        return moveTo( "cms" );
     }
 
     private static class CmsMigrator
@@ -66,13 +58,6 @@ public class SiteMigrator
             throws IOException
         {
             return new CmsDescriptorYml( siteDescriptor );
-        }
-
-        @Override
-        public Path resolveMigratedFilePath( final Path sourcePath )
-            throws IOException
-        {
-            return changeExtensionToYml();
         }
     }
 }

@@ -34,11 +34,4 @@ public class ServiceDescriptorMigrator
 
         return new ServiceDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return changeExtensionToYml();
-    }
 }

@@ -34,11 +34,4 @@ public class PageDescriptorMigrator
 
         return new PageDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return resolveFileInDirectoryWithSameName( "cms", "pages" );
-    }
 }

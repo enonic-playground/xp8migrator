@@ -34,11 +34,4 @@ public class MacroDescriptorMigrator
         final MacroDescriptor macroDescriptor = builder.build();
         return new MacroDescriptorYml( macroDescriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return resolveFileInDirectoryWithSameName( "cms", "macros" );
-    }
 }

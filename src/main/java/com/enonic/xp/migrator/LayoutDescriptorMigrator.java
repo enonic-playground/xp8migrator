@@ -35,11 +35,4 @@ public class LayoutDescriptorMigrator
         final LayoutDescriptor descriptor = builder.build();
         return new LayoutDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return resolveFileInDirectoryWithSameName( "cms", "layouts" );
-    }
 }

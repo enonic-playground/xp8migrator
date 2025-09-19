@@ -34,11 +34,4 @@ public class ContentTypeMigrator
         final ContentType contentType = builder.build();
         return new ContentTypeYml( contentType );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return resolveFileInDirectoryWithSameName( "cms", "content-types" );
-    }
 }

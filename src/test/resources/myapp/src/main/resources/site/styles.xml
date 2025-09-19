@@ -1,4 +1,4 @@
-<styles xmlns="urn:enonic:xp:model:1.0">
+<styles css="/assets/styles.css" xmlns="urn:enonic:xp:model:1.0">
   <image name="editor-image-widescreen">
     <display-name>Widescreen (16:9)</display-name>
     <aspect-ratio>16:9</aspect-ratio>

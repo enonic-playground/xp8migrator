@@ -88,6 +88,8 @@ public final class MigrationExecutor
             }
         } );
 
+        doPostMigration( resourcesDir );
+
         return result;
     }
 
@@ -103,5 +105,12 @@ public final class MigrationExecutor
             result.addEntry( descriptor, false );
             throw e;
         }
+    }
+
+    private void doPostMigration( final Path resourcesDir )
+    {
+        new StylesPostMigrator( resourcesDir ).migrate();
+        new MixinDirPostMigrator( resourcesDir ).migrate();
+        new SiteDirPostMigrator( resourcesDir ).migrate();
     }
 }

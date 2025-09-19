@@ -34,11 +34,4 @@ public class ApiDescriptorMigrator
 
         return new ApiDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return changeExtensionToYml();
-    }
 }

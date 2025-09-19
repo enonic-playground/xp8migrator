@@ -35,9 +35,8 @@ public class StyleDescriptorMigrator
     }
 
     @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
+    public Path resolveYmlFilePath( final Path source )
     {
-        return moveTo( "cms", "styles" );
+        return resourcesDir.resolve( "site" ).resolve( "image.yml" );
     }
 }

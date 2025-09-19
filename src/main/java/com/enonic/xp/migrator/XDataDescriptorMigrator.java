@@ -35,11 +35,4 @@ public class XDataDescriptorMigrator
         final XData descriptor = builder.build();
         return new XDataDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return resolveFileInDirectoryWithSameName( "cms", "x-data" );
-    }
 }

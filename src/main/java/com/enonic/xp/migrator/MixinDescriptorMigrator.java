@@ -35,11 +35,4 @@ public class MixinDescriptorMigrator
         final Mixin descriptor = builder.build();
         return new MixinDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return resolveFileInDirectoryWithSameName( "form-fragments" );
-    }
 }

@@ -59,6 +59,8 @@ public final class XmlSiteParser
 
     private static final String MAPPING_DESCRIPTOR_INVERT_ATTRIBUTE = "invert";
 
+    private static final String APIS_DESCRIPTOR_TAG_NAME = "apis";
+
     private SiteDescriptor.Builder siteDescriptorBuilder;
 
     public XmlSiteParser siteDescriptorBuilder( final SiteDescriptor.Builder siteDescriptorBuilder )
@@ -80,6 +82,11 @@ public final class XmlSiteParser
             ResponseProcessorDescriptors.from( parseProcessorDescriptors( root.getChild( PROCESSOR_DESCRIPTORS_PARENT_TAG_NAME ) ) ) );
         this.siteDescriptorBuilder.mappingDescriptors(
             ControllerMappingDescriptors.from( parseMappingDescriptors( root.getChild( MAPPINGS_DESCRIPTOR_TAG_NAME ) ) ) );
+
+        final ApiMountDescriptorParser apiMountDescriptorParser =
+            new ApiMountDescriptorParser( this.currentApplication, root.getChild( APIS_DESCRIPTOR_TAG_NAME ) );
+
+        this.siteDescriptorBuilder.apiMounts( apiMountDescriptorParser.parse() );
     }
 
     private List<XDataMapping> parseXDatas( final DomElement root )
@@ -91,9 +98,10 @@ public final class XmlSiteParser
     {
         if ( processorDescriptorsParent != null )
         {
-            return processorDescriptorsParent.getChildren( PROCESSOR_DESCRIPTOR_TAG_NAME ).stream().
-                map( this::toProcessorDescriptor ).
-                collect( Collectors.toList() );
+            return processorDescriptorsParent.getChildren( PROCESSOR_DESCRIPTOR_TAG_NAME )
+                .stream()
+                .map( this::toProcessorDescriptor )
+                .collect( Collectors.toList() );
         }
         return Collections.emptyList();
     }
@@ -102,9 +110,10 @@ public final class XmlSiteParser
     {
         if ( mappingDescriptorsParent != null )
         {
-            return mappingDescriptorsParent.getChildren( MAPPING_DESCRIPTOR_TAG_NAME ).stream().
-                map( this::toMappingDescriptor ).
-                collect( Collectors.toList() );
+            return mappingDescriptorsParent.getChildren( MAPPING_DESCRIPTOR_TAG_NAME )
+                .stream()
+                .map( this::toMappingDescriptor )
+                .collect( Collectors.toList() );
         }
         return Collections.emptyList();
     }

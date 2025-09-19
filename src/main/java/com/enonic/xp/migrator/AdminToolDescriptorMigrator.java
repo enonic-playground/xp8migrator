@@ -35,11 +35,4 @@ public class AdminToolDescriptorMigrator
 
         return new AdminToolDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return changeExtensionToYml();
-    }
 }

@@ -35,11 +35,4 @@ public class PartMigrator
         final PartDescriptor descriptor = builder.build();
         return new PartDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return resolveFileInDirectoryWithSameName( "cms", "parts" );
-    }
 }

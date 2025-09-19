@@ -33,11 +33,4 @@ public class ApplicationMigrator
         final ApplicationDescriptor descriptor = appDescriptorBuilder.build();
         return new ApplicationDescriptorYml( descriptor );
     }
-
-    @Override
-    public Path resolveMigratedFilePath( final Path sourcePath )
-        throws IOException
-    {
-        return changeExtensionToYml();
-    }
 }
