@@ -33,7 +33,7 @@ public class ContentTypeYml
 
     public List<String> allowChildContentType;
 
-    public Map<String, Object> config = new LinkedHashMap<>();
+    public Map<String, Object> config;
 
     public Form form;
 
@@ -58,17 +58,20 @@ public class ContentTypeYml
 
         if ( displayNamePlaceholder != null )
         {
+            config = new LinkedHashMap<>();
             config.put( "displayNamePlaceholder", displayNamePlaceholder );
         }
 
         if ( descriptor.getDisplayNameExpression() != null )
         {
+            config = config != null ? config : new LinkedHashMap<>();
             config.put( "displayNameExpression", descriptor.getDisplayNameExpression() );
         }
 
         final InputTypeConfig schemaConfig = descriptor.getSchemaConfig();
-        if ( schemaConfig != null )
+        if ( schemaConfig != null && schemaConfig.getSize() > 0 )
         {
+            config = config != null ? config : new LinkedHashMap<>();
             schemaConfig.iterator().forEachRemaining( property -> config.put( property.getName(), property.getValue() ) );
         }
     }
