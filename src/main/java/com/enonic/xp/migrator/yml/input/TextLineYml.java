@@ -1,8 +1,13 @@
 package com.enonic.xp.migrator.yml.input;
 
+import java.util.LinkedHashMap;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TextLineYml
     extends InputYml<String>
 {
@@ -16,21 +21,24 @@ public class TextLineYml
     {
         super( source, String.class );
 
-        final InputTypeConfig config = source.getInputTypeConfig();
+        final InputTypeConfig inputTypeConfig = source.getInputTypeConfig();
 
-        if ( config.getValue( "maxLength" ) != null )
+        if ( inputTypeConfig.getValue( "maxLength" ) != null )
         {
-            maxLength = config.getValue( "maxLength", Integer.class );
+            maxLength = inputTypeConfig.getValue( "maxLength", Integer.class );
         }
 
-        if ( config.getValue( "regexp" ) != null )
+        if ( inputTypeConfig.getValue( "regexp" ) != null )
         {
-            regexp = config.getValue( "regexp" );
+            regexp = inputTypeConfig.getValue( "regexp" );
         }
 
-        if ( config.getValue( "showCounter" ) != null )
+        if ( inputTypeConfig.getValue( "showCounter" ) != null )
         {
-            showCounter = config.getValue( "showCounter", Boolean.class );
+            config = new LinkedHashMap<>();
+            showCounter = inputTypeConfig.getValue( "showCounter", Boolean.class );
         }
+
+        setConfig( source, "maxLength", "regexp", "showCounter" );
     }
 }

@@ -96,11 +96,11 @@ final class XmlInputTypeConfigMapper
                 return null;
             }
             final String lowerCasedName = name.toLowerCase( Locale.ROOT );
-            if ( lowerCasedName.endsWith( "service" ) )
+            /*if ( lowerCasedName.endsWith( "service" ) )
             {
                 return relativeResolver.toServiceUrl( value );
             }
-            else if ( lowerCasedName.endsWith( "mixintype" ) )
+            else*/ if ( lowerCasedName.endsWith( "mixintype" ) )
             {
                 return relativeResolver.toMixinName( value ).toString();
             }

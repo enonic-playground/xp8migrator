@@ -1,8 +1,11 @@
 package com.enonic.xp.migrator.yml.input;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DoubleYml
     extends InputYml<Double>
 {
@@ -14,16 +17,18 @@ public class DoubleYml
     {
         super( source, Double.class );
 
-        final InputTypeConfig config = source.getInputTypeConfig();
+        final InputTypeConfig inputTypeConfig = source.getInputTypeConfig();
 
-        if ( config.getValue( "min" ) != null )
+        if ( inputTypeConfig.getValue( "min" ) != null )
         {
-            min = config.getValue( "min", Double.class );
+            min = inputTypeConfig.getValue( "min", Double.class );
         }
 
-        if ( config.getValue( "max" ) != null )
+        if ( inputTypeConfig.getValue( "max" ) != null )
         {
-            max = config.getValue( "max", Double.class );
+            max = inputTypeConfig.getValue( "max", Double.class );
         }
+
+        setConfig( source, "min", "max" );
     }
 }

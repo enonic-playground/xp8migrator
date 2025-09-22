@@ -8,16 +8,16 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 
 public class OptionYml
 {
-    private final Map<String, String> attributes = new LinkedHashMap<>();
+    private final Map<String, Object> attributes = new LinkedHashMap<>();
 
     @JsonAnySetter
-    public void addAttribute( final String key, final String value )
+    public void addAttribute( final String key, final Object value )
     {
         attributes.put( key, value );
     }
 
     @JsonAnyGetter
-    public Map<String, String> getAttributes()
+    public Map<String, Object> getAttributes()
     {
         return attributes;
     }

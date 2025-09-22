@@ -37,16 +37,17 @@ public final class MigrationExecutor
 
     private final Path projectPath;
 
-    public MigrationExecutor( final Path projectPath )
+    private final ApplicationKey currentApplication;
+
+    public MigrationExecutor( final Path projectPath, final ApplicationKey currentApplication )
     {
         this.projectPath = projectPath;
+        this.currentApplication = currentApplication;
     }
 
     public MigrationResult migrate()
     {
         final Path resourcesDir = projectPath.resolve( "src/main/resources" );
-
-        final ApplicationKey currentApplication = ApplicationKey.from( "myapp" );
 
         final MigrationResult result = new MigrationResult();
 

@@ -1,8 +1,11 @@
 package com.enonic.xp.migrator.yml.input;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class LongYml
     extends InputYml<Long>
 {
@@ -25,5 +28,7 @@ public class LongYml
         {
             max = config.getValue( "max", Long.class );
         }
+
+        setConfig( source, "min", "max" );
     }
 }

@@ -38,7 +38,7 @@ public class SiteMigrator
         final Path cmsPath = resourcesDir.resolve( "site" ).resolve( "cms.yml" );
         new CmsMigrator( siteDescriptor, new MigrationParams( currentApplication, resourcesDir, cmsPath ) ).migrate();
 
-        return new SiteDescriptorYml( siteDescriptor );
+        return new SiteDescriptorYml( currentApplication, siteDescriptor );
 
     }
 

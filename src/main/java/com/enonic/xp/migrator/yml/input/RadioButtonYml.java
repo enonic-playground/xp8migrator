@@ -2,12 +2,16 @@ package com.enonic.xp.migrator.yml.input;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 import com.enonic.xp.inputtype.InputTypeProperty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RadioButtonYml
     extends InputYml<String>
 {
@@ -21,17 +25,24 @@ public class RadioButtonYml
 
         final Set<InputTypeProperty> values = inputTypeConfig.getProperties( "option" );
 
-        if ( values != null )
+        if ( !values.isEmpty() )
         {
             options = new ArrayList<>();
 
             values.forEach( option -> {
                 final OptionYml optionYml = new OptionYml();
 
-                optionYml.addAttribute( "text", option.getValue() );
                 optionYml.addAttribute( "value", option.getAttribute( "value" ) );
+                if ( option.getAttribute( "i18n" ) != null )
+                {
+                    optionYml.addAttribute( "label", Map.of( "text", option.getValue(), "i18n", option.getAttribute( "i18n" ) ) );
+                }
+                else
+                {
+                    optionYml.addAttribute( "label", option.getValue() );
+                }
                 option.getAttributes().forEach( ( key, value ) -> {
-                    if ( !"value".equals( key ) )
+                    if ( !"value".equals( key ) && !"i18n".equals( key ) )
                     {
                         optionYml.addAttribute( key, value );
                     }
@@ -40,5 +51,7 @@ public class RadioButtonYml
                 options.add( optionYml );
             } );
         }
+
+        setConfig( source, "option" );
     }
 }

@@ -1,8 +1,11 @@
 package com.enonic.xp.migrator.yml.input;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DateTimeYml
     extends InputYml<String>
 {
@@ -12,11 +15,13 @@ public class DateTimeYml
     {
         super( source, String.class );
 
-        final InputTypeConfig config = source.getInputTypeConfig();
+        final InputTypeConfig inputTypeConfig = source.getInputTypeConfig();
 
-        if ( config.getValue( "timezone" ) != null )
+        if ( inputTypeConfig.getValue( "timezone" ) != null )
         {
-            timezone = config.getValue( "timezone", Boolean.class );
+            timezone = inputTypeConfig.getValue( "timezone", Boolean.class );
         }
+
+        setConfig( source, "timezone" );
     }
 }

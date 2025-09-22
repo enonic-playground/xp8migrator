@@ -2,9 +2,12 @@ package com.enonic.xp.migrator.yml;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.enonic.xp.app.ApplicationKey;
+import com.enonic.xp.descriptor.DescriptorKey;
 import com.enonic.xp.descriptor.DescriptorKeys;
 import com.enonic.xp.site.SiteDescriptor;
 import com.enonic.xp.site.mapping.ControllerMappingDescriptors;
@@ -19,7 +22,7 @@ public class SiteDescriptorYml
 
     public List<String> apis;
 
-    public SiteDescriptorYml( final SiteDescriptor descriptor )
+    public SiteDescriptorYml( final ApplicationKey currentApplication, final SiteDescriptor descriptor )
     {
         final ResponseProcessorDescriptors responseProcessors = descriptor.getResponseProcessors();
         if ( responseProcessors != null && responseProcessors.isNotEmpty() )
@@ -73,10 +76,9 @@ public class SiteDescriptorYml
         final DescriptorKeys apiMounts = descriptor.getApiMounts();
         if ( apiMounts != null && apiMounts.isNotEmpty() )
         {
-            apis = new ArrayList<>();
-            apiMounts.forEach( p -> {
-                apis.add( p.toString() );
-            } );
+            final String prefix = currentApplication + ":";
+            apis = apiMounts.stream().map( DescriptorKey::toString ).map(
+                api -> api.startsWith( prefix ) ? api.replace( prefix, "" ) : api ).collect( Collectors.toList() );
         }
     }
 

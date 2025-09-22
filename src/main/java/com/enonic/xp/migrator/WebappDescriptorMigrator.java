@@ -33,6 +33,6 @@ public class WebappDescriptorMigrator
 
         final WebappDescriptor descriptor = builder.build();
 
-        return new WebappDescriptorYml( descriptor );
+        return new WebappDescriptorYml( currentApplication, descriptor );
     }
 }

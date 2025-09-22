@@ -63,7 +63,7 @@
                 <bgColor>#eee</bgColor>
                 <theme>Dark</theme>
                 <theme>Light</theme>
-                <option value="pt-br">Brazilian Portuguese</option>
+                <option value="pt-br" i18n="i18n.pt-br" attr1="v1">Brazilian Portuguese</option>
                 <option value="ca">Catalan</option>
                 <option value="zh">Chinese</option>
                 <option value="cs">Czech</option>

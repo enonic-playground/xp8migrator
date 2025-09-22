@@ -1,11 +1,9 @@
 package com.enonic.xp.migrator.yml.input;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.enonic.xp.form.Input;
 import com.enonic.xp.inputtype.InputTypeConfig;
@@ -16,8 +14,6 @@ public class ComboBoxYml
 {
     public List<OptionYml> options;
 
-    public Map<String, Object> config;
-
     public ComboBoxYml( final Input source )
     {
         super( source, String.class );
@@ -26,17 +22,24 @@ public class ComboBoxYml
 
         final Set<InputTypeProperty> values = inputTypeConfig.getProperties( "option" );
 
-        if ( values != null )
+        if ( !values.isEmpty() )
         {
             options = new ArrayList<>();
 
             values.forEach( option -> {
                 final OptionYml optionYml = new OptionYml();
 
-                optionYml.addAttribute( "text", option.getValue() );
                 optionYml.addAttribute( "value", option.getAttribute( "value" ) );
+                if ( option.getAttribute( "i18n" ) != null )
+                {
+                    optionYml.addAttribute( "label", Map.of( "text", option.getValue(), "i18n", option.getAttribute( "i18n" ) ) );
+                }
+                else
+                {
+                    optionYml.addAttribute( "label", option.getValue() );
+                }
                 option.getAttributes().forEach( ( key, value ) -> {
-                    if ( !"value".equals( key ) )
+                    if ( !"value".equals( key ) && !"i18n".equals( key ) )
                     {
                         optionYml.addAttribute( key, value );
                     }
@@ -46,25 +49,7 @@ public class ComboBoxYml
             } );
         }
 
-        final Set<String> propertyNames =
-            inputTypeConfig.getNames().stream().filter( name -> !name.equals( "option" ) ).collect( Collectors.toSet() );
-
-        if ( !propertyNames.isEmpty() )
-        {
-            config = new LinkedHashMap<>();
-
-            propertyNames.forEach( propertyName -> {
-                final Set<InputTypeProperty> properties = inputTypeConfig.getProperties( propertyName );
-                if ( properties.size() == 1 )
-                {
-                    config.put( propertyName, properties.iterator().next().getValue() );
-                }
-                else
-                {
-                    config.put( propertyName, properties.stream().map( InputTypeProperty::getValue ).collect( Collectors.toSet() ) );
-                }
-            } );
-        }
+        setConfig( source, "option" );
     }
 
 }

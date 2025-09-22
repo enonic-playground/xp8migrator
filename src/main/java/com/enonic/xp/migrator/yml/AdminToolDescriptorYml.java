@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import com.enonic.xp.admin.tool.AdminToolDescriptor;
+import com.enonic.xp.app.ApplicationKey;
 import com.enonic.xp.descriptor.DescriptorKey;
 import com.enonic.xp.descriptor.DescriptorKeys;
 import com.enonic.xp.schema.LocalizedText;
@@ -26,7 +27,7 @@ public class AdminToolDescriptorYml
 
     public List<String> interfaces;
 
-    public AdminToolDescriptorYml( final AdminToolDescriptor descriptor )
+    public AdminToolDescriptorYml( final ApplicationKey currentApplication, final AdminToolDescriptor descriptor )
     {
         displayName = LocalizeHelper.localizeProperty( descriptor.getDisplayName(), descriptor.getDisplayNameI18nKey() );
         description = LocalizeHelper.localizeProperty( descriptor.getDescription(), descriptor.getDescriptionI18nKey() );
@@ -40,7 +41,9 @@ public class AdminToolDescriptorYml
         final DescriptorKeys apiMounts = descriptor.getApiMounts();
         if ( apiMounts != null && apiMounts.isNotEmpty() )
         {
-            apis = apiMounts.stream().map( DescriptorKey::toString ).collect( Collectors.toList() );
+            final String prefix = currentApplication + ":";
+            apis = apiMounts.stream().map( DescriptorKey::toString ).map(
+                api -> api.startsWith( prefix ) ? api.replace( prefix, "" ) : api ).collect( Collectors.toList() );
         }
 
         final Set<String> interfaceList = descriptor.getInterfaces();
