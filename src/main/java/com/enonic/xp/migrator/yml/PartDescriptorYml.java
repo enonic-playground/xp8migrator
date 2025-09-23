@@ -17,8 +17,8 @@ public class PartDescriptorYml
 
     public PartDescriptorYml( final PartDescriptor source )
     {
-        this.displayName = new LocalizedText( source.getDisplayName(), source.getDisplayNameI18nKey() );
-        this.description = new LocalizedText( source.getDescription(), source.getDescriptionI18nKey() );
+        this.displayName = LocalizeHelper.localizeProperty( source.getDisplayName(), source.getDisplayNameI18nKey() );
+        this.description = LocalizeHelper.localizeProperty( source.getDescription(), source.getDescriptionI18nKey() );
         this.form = source.getConfig();
     }
 }
